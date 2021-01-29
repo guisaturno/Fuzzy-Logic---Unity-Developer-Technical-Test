@@ -25,9 +25,9 @@ public class IntersectionStop : MonoBehaviour
         if (other.CompareTag("Vehicle"))
         {
             if (_intersection.CurrentTurn == myTurnNumber)
-                other.GetComponent<AIBrain>().IsWaiting = false;
+                other.GetComponentInParent<AIBrain>().IsWaiting = false;
             else
-                other.GetComponent<AIBrain>().IsWaiting = true;
+                other.GetComponentInParent<AIBrain>().IsWaiting = true;
         }
     }
 }

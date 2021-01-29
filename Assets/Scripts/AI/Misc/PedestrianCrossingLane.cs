@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -9,7 +10,7 @@ public class PedestrianCrossingLane : MonoBehaviour
     private void Start()
     {
         _pedestrianCrossing = GetComponentInChildren<PedestrianCrossing>();
-        
+
         GetComponent<BoxCollider>().isTrigger = true;
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
@@ -20,10 +21,17 @@ public class PedestrianCrossingLane : MonoBehaviour
     {
         if (other.CompareTag("Vehicle"))
         {
+            other.GetComponentInParent<CarBrain>().AtCrossing = true;
             if (_pedestrianCrossing.IsCrossing)
-                other.GetComponent<AIBrain>().IsWaiting = true;
+                other.GetComponentInParent<AIBrain>().IsWaiting = true;
             else
-                other.GetComponent<AIBrain>().IsWaiting = false;
+                other.GetComponentInParent<AIBrain>().IsWaiting = false;
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Vehicle"))
+            other.GetComponentInParent<CarBrain>().AtCrossing = false;
     }
 }

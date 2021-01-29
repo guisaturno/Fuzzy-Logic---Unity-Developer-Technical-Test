@@ -6,12 +6,12 @@ using UnityEngine.AI;
 public class AIBrain : MonoBehaviour
 {
     //Serialized variables
-    [SerializeField] private List<Transform> _currentPath;
+    [SerializeField] protected List<Transform> _currentPath;
 
     //Private variables
-    private NavMeshAgent _navMeshAgent;
+    protected NavMeshAgent _navMeshAgent;
     private bool newDestinationSet;
-    private int currentPathPoint;
+    protected int currentPathPoint;
     private bool isWaiting;
     private float defaultSpeed;
 

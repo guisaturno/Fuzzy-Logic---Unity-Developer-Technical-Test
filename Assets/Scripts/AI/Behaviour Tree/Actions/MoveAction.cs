@@ -17,11 +17,9 @@ public class MoveAction : MonoBehaviour, ITask
         {
             _aiBrain.NavMeshAgent.SetDestination(_aiBrain.CurrentPath[_aiBrain.CurrentPathPoint].position);
             _aiBrain.NewDestinationSet = true;
-            print("is moving");
             return TaskState.RUNNING;
         }
 
-        print("isn't moving");
         return TaskState.SUCCESS;
     }
 

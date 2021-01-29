@@ -6,10 +6,13 @@ public class Intersection : MonoBehaviour
 {
     //Serialized variables
     [SerializeField] private float timePerTurn;
-
+    [SerializeField] private float delayTime;
+    
     //Private variables
     private float timeCounter;
+    private bool atDelayTime;
     private int currentTurn;
+    private int delayedTurn;
     private int stopsAmount;
     private Timer _timer;
 
@@ -25,12 +28,19 @@ public class Intersection : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!_timer.Counting(ref timeCounter, timePerTurn))
+        if (atDelayTime && !_timer.Counting(ref timeCounter, delayTime))
         {
-            currentTurn++;
-            if (currentTurn > stopsAmount)
-                currentTurn = 1;
-            print(currentTurn);
+            atDelayTime = false;
+            currentTurn = delayedTurn;
+        }
+        
+        if(!atDelayTime && !_timer.Counting(ref timeCounter, timePerTurn))
+        {
+            atDelayTime = true;
+            currentTurn = 0;
+            delayedTurn++;
+            if (delayedTurn > stopsAmount)
+                delayedTurn = 1;
         }
     }
 
