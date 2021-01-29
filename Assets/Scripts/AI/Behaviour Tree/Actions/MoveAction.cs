@@ -18,10 +18,11 @@ public class MoveAction : MonoBehaviour, ITask
             !_aiBrain.NewDestinationSet)
         {
             if (_aiBrain.IsWaiting)
-                _aiBrain.NavMeshAgent.SetDestination(transform.position);
+                _aiBrain.NavMeshAgent.speed = 0;
             else
-                _aiBrain.NavMeshAgent.SetDestination(_aiBrain.CurrentPath[_aiBrain.CurrentPathPoint].position);
+                _aiBrain.NavMeshAgent.speed = _aiBrain.DefaultSpeed;
             
+            _aiBrain.NavMeshAgent.SetDestination(_aiBrain.CurrentPath[_aiBrain.CurrentPathPoint].position);
             _aiBrain.NewDestinationSet = true;
             print("is moving");
             return TaskState.RUNNING;

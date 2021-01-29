@@ -12,9 +12,12 @@ public class AIBrain : MonoBehaviour
     private bool newDestinationSet;
     private int currentPathPoint;
     private bool isWaiting;
+    private float defaultSpeed;
 
     //Properties
     public NavMeshAgent NavMeshAgent => _navMeshAgent;
+    public float DefaultSpeed => defaultSpeed;
+
     public List<Transform> CurrentPath
     {
         get => _currentPath;
@@ -42,5 +45,6 @@ public class AIBrain : MonoBehaviour
     private void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        defaultSpeed = _navMeshAgent.speed;
     }
 }
