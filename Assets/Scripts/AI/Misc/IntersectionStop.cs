@@ -2,14 +2,18 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(BoxCollider))]
-public class PedestrianCrossingLane : MonoBehaviour
+public class IntersectionStop : MonoBehaviour
 {
-    private PedestrianCrossing _pedestrianCrossing;
+    //Serialized variables
+    [SerializeField] private int myTurnNumber;
+
+    //Private variables
+    private Intersection _intersection;
 
     private void Start()
     {
-        _pedestrianCrossing = GetComponentInChildren<PedestrianCrossing>();
-        
+        _intersection = GetComponentInParent<Intersection>();
+
         GetComponent<BoxCollider>().isTrigger = true;
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
@@ -20,10 +24,10 @@ public class PedestrianCrossingLane : MonoBehaviour
     {
         if (other.CompareTag("Vehicle"))
         {
-            if (_pedestrianCrossing.IsCrossing)
-                other.GetComponent<AIBrain>().IsWaiting = true;
-            else
+            if (_intersection.CurrentTurn == myTurnNumber)
                 other.GetComponent<AIBrain>().IsWaiting = false;
+            else
+                other.GetComponent<AIBrain>().IsWaiting = true;
         }
     }
 }
