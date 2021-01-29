@@ -1,35 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(BoxCollider))]
 public class SafeDistanceCheck : MonoBehaviour, ITask
 {
     private AIBrain _aiBrain;
+    private bool isAtSafeDistance;
 
     private void Start()
     {
         _aiBrain = GetComponentInParent<AIBrain>();
+        
+        GetComponent<BoxCollider>().isTrigger = true;
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
+        rb.useGravity = false;
+
+        isAtSafeDistance = true;
     }
 
     public TaskState Run()
     {
-        
-        
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out hit, 1) 
-            || Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, 1))
-        {
-            if (hit.collider.gameObject.CompareTag("Vehicle"))
-                _aiBrain.NavMeshAgent.speed = 0;
-            
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * hit.distance,
-                Color.yellow);
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * hit.distance,
-                Color.yellow);
-        }
-        
+        if (isAtSafeDistance)
+            return TaskState.SUCCESS;
 
-        return TaskState.SUCCESS;
+        _aiBrain.NavMeshAgent.speed = 0;
+        return TaskState.FAILURE;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("VehicleRear"))
+            isAtSafeDistance = false;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("VehicleRear"))
+            isAtSafeDistance = true;
     }
 
     public void Terminate()

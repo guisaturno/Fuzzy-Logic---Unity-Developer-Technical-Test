@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MoveAction : MonoBehaviour, ITask
 {
@@ -17,11 +15,6 @@ public class MoveAction : MonoBehaviour, ITask
         if (_aiBrain.NavMeshAgent.remainingDistance > _aiBrain.NavMeshAgent.stoppingDistance ||
             !_aiBrain.NewDestinationSet)
         {
-            if (_aiBrain.IsWaiting)
-                _aiBrain.NavMeshAgent.speed = 0;
-            else
-                _aiBrain.NavMeshAgent.speed = _aiBrain.DefaultSpeed;
-            
             _aiBrain.NavMeshAgent.SetDestination(_aiBrain.CurrentPath[_aiBrain.CurrentPathPoint].position);
             _aiBrain.NewDestinationSet = true;
             print("is moving");

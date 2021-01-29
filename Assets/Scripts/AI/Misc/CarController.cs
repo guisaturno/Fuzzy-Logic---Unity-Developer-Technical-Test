@@ -11,6 +11,7 @@ public class CarController : MonoBehaviour
 
     //Checks
     private SafeDistanceCheck _safeDistanceCheck;
+    private WaintingCheck _waintingCheck;
 
     private void Awake()
     {
@@ -23,20 +24,16 @@ public class CarController : MonoBehaviour
 
         //Checks
         _safeDistanceCheck = GetComponentInChildren<SafeDistanceCheck>();
+        _waintingCheck = GetComponentInChildren<WaintingCheck>();
     }
 
     private void Start()
     {
-        mainSequence.AddTask(_moveAction, _getNextPathPointAction);
+        mainSequence.AddTask(_waintingCheck, _safeDistanceCheck, _moveAction, _getNextPathPointAction);
     }
 
     private void Update()
     {
         mainSequence.Run();
-        
-        /*NOTE: The ideal way to implement the following line, would be to perform a parallel task withing the main
-        sequence,running the check alongside the move action. However, the behaviour tree system is at it's early stages
-        of development and for the time being does not support it*/
-        _safeDistanceCheck.Run();
     }
 }

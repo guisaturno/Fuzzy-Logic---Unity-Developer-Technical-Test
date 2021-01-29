@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Vehicle
   - Pedestrian
+  - VehicleRear
   layers:
   - Default
   - TransparentFX
