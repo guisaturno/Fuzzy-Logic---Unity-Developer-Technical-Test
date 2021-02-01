@@ -1,0 +1,4 @@
+This project was developed for Fuzzy Logic's Unity Developer Technical Test by Guilherme Saturno. 
+
+It uses a combination of Unity's navmesh and a behavior tree system to create an AI capable of operating independently. To add new kinds of agents it is possible to use the same action leaves and AI brain used by pedestrians and cars, creating actions and a controller to fit new behaviors and an AI brain inheritance to allow further specification if needed. 
+Using trigger colliders, new rules can also be created to communicate with the AI brain, making it a generic approach that would fit any kind of vehicle or pedestrian added.

@@ -1,13 +1,14 @@
-using System;
 using UnityEngine;
 
 public class TJunctionSensor : MonoBehaviour
 {
+    //Serialized variables
     [SerializeField] private bool isRightSensor;
 
     //Private variables
     private TJunction tJunction;
 
+    //MonoBehaviour callbacks
     private void Start()
     {
         tJunction = GetComponentInParent<TJunction>();

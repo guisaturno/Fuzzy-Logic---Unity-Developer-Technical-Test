@@ -5,6 +5,7 @@
         //Private Variables
         private bool timing;
 
+        //Public methods
         public bool Counting(ref float time, float baseTime)
         {
             //Verifies that the timer is updated

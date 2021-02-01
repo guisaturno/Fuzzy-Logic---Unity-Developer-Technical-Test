@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PedestrianController : MonoBehaviour
@@ -11,6 +9,7 @@ public class PedestrianController : MonoBehaviour
     private MoveAction _moveAction;
     private GetNextPathPointAction _getNextPathPointAction;
 
+    //MonoBehaviour callbacks
     private void Awake()
     {
         //AI structure

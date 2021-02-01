@@ -1,8 +1,8 @@
-using System;
 using UnityEngine;
 
 public class CarBrain : AIBrain
 {
+    //Serialized variables
     [SerializeField] private float rotationSpeed;
 
     //Private variables
@@ -14,10 +14,11 @@ public class CarBrain : AIBrain
         get => atCrossing;
         set => atCrossing = value;
     }
-
+    
+    //MonoBehaviour callbacks
     private void FixedUpdate()
     {
-        //Rotates in towards its next path point while at a navmesh link
+        //Rotates towards its next path point while at a navmesh link
         if (_navMeshAgent.isOnOffMeshLink)
         {
             Vector3 target = new Vector3(_currentPath[currentPathPoint].position.x, transform.position.y,

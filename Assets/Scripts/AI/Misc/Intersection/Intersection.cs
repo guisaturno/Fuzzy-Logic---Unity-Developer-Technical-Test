@@ -17,6 +17,7 @@ public class Intersection : MonoBehaviour
     //Properties
     public int CurrentTurn => currentTurn;
 
+    //MonoBehaviour callbacks
     private void Start()
     {
         _timer = new Timer();
@@ -26,12 +27,14 @@ public class Intersection : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Wait between turns
         if (atDelayTime && !_timer.Counting(ref timeCounter, delayTime))
         {
             atDelayTime = false;
             currentTurn = delayedTurn;
         }
         
+        //Countdown of the current turn duration
         if(!atDelayTime && !_timer.Counting(ref timeCounter, timePerTurn))
         {
             atDelayTime = true;

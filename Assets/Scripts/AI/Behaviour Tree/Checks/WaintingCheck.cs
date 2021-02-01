@@ -5,11 +5,13 @@ public class WaintingCheck : MonoBehaviour, ITask
     //Private variables
     private AIBrain _aiBrain;
 
+    //MonoBehaviour callbacks
     private void Start()
     {
         _aiBrain = GetComponentInParent<AIBrain>();
     }
     
+    //Public methods
     public TaskState Run()
     {
         if (_aiBrain.IsWaiting)

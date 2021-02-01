@@ -13,6 +13,7 @@ public class CarController : MonoBehaviour
     private SafeDistanceCheck _safeDistanceCheck;
     private WaintingCheck _waintingCheck;
 
+    //MonoBehaviour callbacks
     private void Awake()
     {
         //AI structure

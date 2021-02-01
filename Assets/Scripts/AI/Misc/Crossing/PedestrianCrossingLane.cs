@@ -1,12 +1,13 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(BoxCollider))]
 public class PedestrianCrossingLane : MonoBehaviour
 {
+    //Private variables
     private PedestrianCrossing _pedestrianCrossing;
 
+    //MonoBehaviour callbacks
     private void Start()
     {
         _pedestrianCrossing = GetComponentInChildren<PedestrianCrossing>();
@@ -21,11 +22,12 @@ public class PedestrianCrossingLane : MonoBehaviour
     {
         if (other.CompareTag("Vehicle"))
         {
-            other.GetComponentInParent<CarBrain>().AtCrossing = true;
             if (_pedestrianCrossing.IsCrossing)
                 other.GetComponentInParent<AIBrain>().IsWaiting = true;
             else
                 other.GetComponentInParent<AIBrain>().IsWaiting = false;
+            
+            other.GetComponentInParent<CarBrain>().AtCrossing = true;
         }
     }
 

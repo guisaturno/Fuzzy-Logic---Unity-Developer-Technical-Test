@@ -10,6 +10,7 @@ public class IntersectionStop : MonoBehaviour
     //Private variables
     private Intersection _intersection;
 
+    //MonoBehaviour callbacks
     private void Start()
     {
         _intersection = GetComponentInParent<Intersection>();

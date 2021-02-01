@@ -4,9 +4,11 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class SafeDistanceCheck : MonoBehaviour, ITask
 {
+    //Private variables
     private CarBrain _carBrain;
     private bool isAtSafeDistance;
 
+    //MonoBehaviour callbacks
     private void Start()
     {
         _carBrain = GetComponentInParent<CarBrain>();
@@ -19,8 +21,11 @@ public class SafeDistanceCheck : MonoBehaviour, ITask
         isAtSafeDistance = true;
     }
 
+    //Public methods
     public TaskState Run()
     {
+        //Verify if there is enough space between the car ahead and the pedestrian crossing
+        //assuring not to stop on top of it
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2) &&
             _carBrain.AtCrossing)
@@ -29,15 +34,21 @@ public class SafeDistanceCheck : MonoBehaviour, ITask
                 _carBrain.NavMeshAgent.speed = 0;
         }
 
-        //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 2, Color.yellow);
-
+        //Return success and proceed to next task if the agent is at a safe distance
         if (isAtSafeDistance)
             return TaskState.SUCCESS;
 
+        //Stop the agent movement, returning failure not proceeding to the next task
         _carBrain.NavMeshAgent.speed = 0;
         return TaskState.FAILURE;
     }
 
+    public void Terminate()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    //Private methods
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("VehicleRear"))
@@ -48,10 +59,5 @@ public class SafeDistanceCheck : MonoBehaviour, ITask
     {
         if (other.CompareTag("VehicleRear"))
             isAtSafeDistance = true;
-    }
-
-    public void Terminate()
-    {
-        throw new System.NotImplementedException();
     }
 }

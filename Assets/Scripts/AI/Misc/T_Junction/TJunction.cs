@@ -14,12 +14,12 @@ public class TJunction : MonoBehaviour
         set => isSafeRight = value;
     }
 
-    //Properties
     public bool IsSafeLeft
     {
         set => isSafeLeft = value;
     }
 
+    //MonoBehaviour callbacks
     private void Start()
     {
         GetComponent<BoxCollider>().isTrigger = true;
@@ -34,6 +34,7 @@ public class TJunction : MonoBehaviour
         {
             AIBrain otherBrain = other.GetComponent<AIBrain>();
 
+            //Decide if it is safe to proceed, based on where it is headed, and from which side there are agents coming
             if (otherBrain.CurrentPath[otherBrain.CurrentPathPoint].position.x < gameObject.transform.position.x)
             {
                 if (isSafeRight)
